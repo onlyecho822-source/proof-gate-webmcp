@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Proof Gate turns claims and evidence into an auditable case that humans and browser agents can build together through WebMCP." />
+  <title>Proof Gate — Evidence before action</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Proof Gate home">
+      <span class="brand-mark" aria-hidden="true">PG</span>
+      <span><strong>Proof Gate</strong><small>Evidence before action</small></span>
+    </a>
+    <div class="top-actions">
+      <div class="webmcp-chip" aria-live="polite">
+        <span class="status-dot"></span>
+        <span id="webmcp-status">Checking WebMCP…</span>
+      </div>
+      <button id="toggle-console" class="button ghost" type="button">Tool inspector</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="kicker">WEBMCP-NATIVE EVIDENCE WORKSPACE</span>
+        <h1>Turn a claim into an <em>auditable decision.</em></h1>
+        <p>Humans see the evidence. Agents get structured tools. Nobody has to pretend DOM scraping is a governance strategy.</p>
+        <div class="hero-actions">
+          <button id="load-demo" class="button primary" type="button">Load fictional demo</button>
+          <a class="button secondary" href="#workspace">Start from scratch</a>
+        </div>
+      </div>
+      <aside class="hero-panel">
+        <span class="eyebrow">Agent surface</span>
+        <h2>Six explicit tools</h2>
+        <p id="webmcp-detail">Checking browser support…</p>
+        <div class="tool-stack" aria-label="Registered tool names">
+          <code>proofgate.get_case</code>
+          <code>proofgate.set_claim</code>
+          <code>proofgate.add_evidence</code>
+          <code>proofgate.identify_conflicts</code>
+          <code>proofgate.evaluate_case</code>
+          <code>proofgate.export_case</code>
+        </div>
+        <small id="tool-count">Preparing tool handlers…</small>
+      </aside>
+    </section>
+
+    <section class="explainer" aria-label="How Proof Gate works">
+      <article><span>01</span><h3>State the claim</h3><p>Define exactly what is being asserted and which decision depends on it.</p></article>
+      <article><span>02</span><h3>Attach provenance</h3><p>Record supporting, contradicting, and contextual evidence as separate sources.</p></article>
+      <article><span>03</span><h3>Expose conflict</h3><p>Surface opposing evidence, duplicate source families, stale records, and provenance gaps.</p></article>
+      <article><span>04</span><h3>Evaluate transparently</h3><p>Produce a deterministic verdict from evidence bound to the current claim revision. No invented facts.</p></article>
+    </section>
+
+    <section id="workspace" class="workspace">
+      <div class="workspace-main">
+        <div class="section-head">
+          <div><span class="eyebrow">CASE WORKSPACE</span><h2>Claim & evidence</h2></div>
+          <div class="head-actions">
+            <button id="reset-case" class="button ghost danger" type="button">Reset</button>
+            <button id="download-json" class="button ghost" type="button">Export JSON</button>
+          </div>
+        </div>
+
+        <div class="case-form">
+          <label>
+            <span>Claim to evaluate</span>
+            <textarea id="claim" rows="3" placeholder="Example: The vendor reduced support ticket volume by 40% after deployment."></textarea>
+          </label>
+          <label>
+            <span>Decision context</span>
+            <textarea id="decision-context" rows="2" placeholder="What real decision depends on this claim?"></textarea>
+          </label>
+        </div>
+
+        <div class="evidence-section">
+          <div class="subhead">
+            <div><span class="eyebrow">EVIDENCE LEDGER</span><h3>Recorded evidence</h3></div>
+            <button id="add-evidence" class="button secondary" type="button">+ Add evidence</button>
+          </div>
+          <p id="evidence-empty" class="empty-state">No evidence yet. Each record is bound to the claim revision that existed when it was added; changing the claim never silently reuses old evidence.</p>
+          <div id="evidence-list" class="card-list"></div>
+        </div>
+
+        <div class="conflict-section">
+          <div class="subhead"><div><span class="eyebrow">CONFLICT SURFACE</span><h3>What does not reconcile cleanly?</h3></div></div>
+          <p id="conflict-empty" class="empty-state compact">No conflicts detected yet.</p>
+          <div id="conflict-list" class="card-list conflicts"></div>
+        </div>
+
+        <div class="audit-section">
+          <div class="subhead"><div><span class="eyebrow">AUDIT LINEAGE</span><h3>What changed, when, and under which claim?</h3></div></div>
+          <p id="audit-empty" class="empty-state compact">No audit events yet.</p>
+          <div id="audit-list" class="card-list audit-list"></div>
+        </div>
+      </div>
+
+      <aside class="verdict-panel">
+        <span class="eyebrow">DETERMINISTIC EVALUATION</span>
+        <div class="verdict-line">
+          <strong id="verdict" data-status="INSUFFICIENT">INSUFFICIENT</strong>
+          <span id="confidence">low confidence</span>
+        </div>
+        <p id="rationale">Not enough substantive evidence has been recorded.</p>
+        <div class="metrics">
+          <div><span>Support</span><strong id="support-metric">0</strong></div>
+          <div><span>Contradict</span><strong id="contradict-metric">0</strong></div>
+          <div><span>Evidence</span><strong id="evidence-metric">0</strong></div>
+          <div><span>Conflicts</span><strong id="conflict-metric">0</strong></div>
+        </div>
+        <button id="evaluate" class="button primary full" type="button">Evaluate case</button>
+        <div class="method-note">
+          <strong>What this does not do</strong>
+          <p>Proof Gate does not browse, hallucinate missing evidence, or convert confidence into fact. It evaluates only evidence bound to the current claim revision; older evidence remains visible in audit history but cannot leak into a new claim.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="why-webmcp">
+      <div>
+        <span class="kicker">WHY WEBMCP</span>
+        <h2>The webpage stops being a picture the agent has to reverse-engineer.</h2>
+      </div>
+      <div class="comparison-grid">
+        <article>
+          <span class="comparison-label">Without WebMCP</span>
+          <p>The agent reads labels, guesses which controls matter, scrapes state from the DOM, and tries to keep its own copy synchronized.</p>
+        </article>
+        <article class="highlight">
+          <span class="comparison-label">With WebMCP</span>
+          <p>The page exposes typed actions and state directly. Agent calls update the same evidence ledger the human sees, creating one shared workspace instead of two drifting interpretations.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="evidence-dialog">
+    <form id="evidence-form" method="dialog">
+      <div class="dialog-head"><div><span class="eyebrow">NEW RECORD</span><h2>Add evidence</h2></div><button id="close-evidence" type="button" class="icon-button" aria-label="Close">×</button></div>
+      <div class="form-grid">
+        <label><span>Stance</span><select name="stance" required><option value="supports">Supports</option><option value="contradicts">Contradicts</option><option value="context">Context</option></select></label>
+        <label><span>Source type</span><select name="sourceType" required><option value="primary">Primary</option><option value="secondary">Secondary</option><option value="inference">Inference</option></select></label>
+        <label class="span-2"><span>Source label</span><input name="sourceLabel" required placeholder="Document, dataset, witness, filing…" /></label>
+        <label class="span-2"><span>Source URL</span><input name="sourceUrl" type="url" placeholder="https://…" /></label>
+        <label class="span-2"><span>Observation / excerpt</span><textarea name="excerpt" rows="4" required placeholder="Record the factual observation. Keep quotations short."></textarea></label>
+        <label><span>Observed at</span><input name="observedAt" type="date" /></label>
+        <label><span>Reliability (1–5)</span><input name="reliability" type="number" min="1" max="5" value="3" required /></label>
+      </div>
+      <button class="button primary full" type="submit">Add to evidence ledger</button>
+    </form>
+  </dialog>
+
+  <aside id="tool-console" class="tool-console" aria-label="Local tool inspector">
+    <div class="console-head"><div><span class="eyebrow">LOCAL INSPECTOR</span><h2>Exercise the same tool handlers</h2></div><button class="icon-button" type="button" onclick="document.querySelector('#tool-console').classList.remove('open')">×</button></div>
+    <p>This inspector is a development fallback for browsers without native WebMCP. Compatible agents discover the same handlers through <code>document.modelContext</code>.</p>
+    <label><span>Tool</span><select id="console-tool"></select></label>
+    <label><span>JSON arguments</span><textarea id="console-args" rows="10"></textarea></label>
+    <button id="run-tool" class="button primary full" type="button">Run handler</button>
+    <pre id="console-output">{}</pre>
+  </aside>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
