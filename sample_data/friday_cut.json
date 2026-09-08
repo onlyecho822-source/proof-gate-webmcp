@@ -1,0 +1,23 @@
+{
+  "title": "Friday Cut — Mock Production",
+  "objective": "Deliver the film and its trailer this Friday with the smallest creative disruption, without treating unresolved rights evidence as clearance.",
+  "release_deadline": "2026-09-11T17:00:00Z",
+  "assets": [
+    {
+      "id": "song-a",
+      "kind": "music",
+      "label": "Neon Avenue (fictional song)",
+      "usage_locations": ["Scene 12", "Trailer"],
+      "territories": ["United States", "United Kingdom"],
+      "search_queries": ["\"Neon Avenue\" fictional music audiovisual license rights"]
+    },
+    {
+      "id": "photo-b",
+      "kind": "archive-photo",
+      "label": "Harbor 1974 (fictional archive photo)",
+      "usage_locations": ["Scene 44"],
+      "territories": ["United States", "France"],
+      "search_queries": ["\"Harbor 1974\" fictional archive photo license audiovisual rights"]
+    }
+  ]
+}
