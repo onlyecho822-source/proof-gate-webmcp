@@ -1,107 +1,101 @@
-# Proof Gate architecture
+# Release Path v0.3 — Public Architecture
 
-## Center
+## Core principle
 
-Proof Gate is a browser-native evidence workspace where the human UI and WebMCP tools operate on one state object and one deterministic evidence engine.
+The production problem chooses the next cognitive mode. The application does not blindly execute a fixed sequence.
 
 ```text
-External human / browsing agent
-            │
-            ▼
-   Distillation Protocol
-            │
-            ▼
-      Shared case state
-            │
-    ┌───────┴────────┐
-    ▼                ▼
-Human UI       WebMCP tool layer
-    │                │
-    └───────┬────────┘
-            ▼
- Deterministic evidence engine
-            │
-            ▼
-Evidence → conflicts → verdict → audit lineage → export
+INPUT + CURRENT STATE + EVIDENCE
+              │
+              ▼
+        STATE ROUTER
+              │
+   ┌──────────┼───────────┐
+   ▼          ▼           ▼
+ NATE       ECHO        PROOF
+   ▲          │           │
+   │          ▼           ▼
+   │       OBELISK ◄── evidence
+   │          │
+   │          ▼
+   │        DEVIL
+   │          │
+   │          ▼
+   │         TGC ───────► PROOF
+   │          │
+   └── COUNTERFACTUAL
+              │
+              ▼
+             ECHO
+              │
+              ▼
+           MINIMUM
+              │
+              ▼
+             NATE
+              │
+              ▼
+          AUTHORITY
+              │
+              ▼
+        new revision
+              │
+              ▼
+            PROOF
 ```
 
-## State model
+DISTILLATION produces the external receipt at the end of every decision cycle.
 
-A case preserves:
+## Router behavior
 
-- `caseId`
-- `claimRevision`
-- exact `claim`
-- `decisionContext`
-- evidence records with stance, source type, source family, date, reliability, and revision binding
-- conflict analysis
-- deterministic verdict
-- audit lineage
-- engine/schema version
+The router evaluates state flags after every mode. Examples:
 
-A material claim change increments the claim revision. Older evidence stays inspectable but is excluded from the new verdict until deliberately re-entered under that revision.
+- objective unframed → NATE
+- graph missing or dirtied by adversarial findings → ECHO
+- evidence unverified or scope changed → PROOF
+- structural assumptions not challenged → OBELISK
+- costly edge cases not tested → DEVIL
+- global/distribution frame not tested → TGC
+- blockers exist without intervention candidates → COUNTERFACTUAL
+- interventions exist without propagated worlds → ECHO
+- worlds exist without minimum-useful-action selection → MINIMUM
+- candidate selected but not checked against practical objective → NATE
+- consequential change proposed → AUTHORITY
+- external explanation required → DISTILLATION
 
-## Human → AI → machine
+The test suite proves that ECHO and PROOF can be revisited and that clean cases skip modes that are unnecessary.
 
-Proof Gate demonstrates the Global Compass separation in a narrow form:
+## Evidence revisions
 
-**Human** frames or revises the claim, enters/inspects evidence, and challenges the result.
+Every evidence record carries `claim_revision`. A production mutation creates a new revision. Old evidence is preserved as history but cannot automatically support the new production world.
 
-**Agent** uses explicit WebMCP operations to structure evidence, surface conflicts, evaluate, and export.
+This prevents an old fact about an old edit from silently becoming evidence for a changed edit.
 
-**Machine** enforces URL/date/schema constraints, revision binding, source-family grouping, scoring rules, and audit events deterministically.
+## Minimum useful action
 
-The AI/tool layer does not gain truth authority merely because it can call a function.
+Release Path does not collapse every objective into one scalar score.
 
-## Distillation boundary
+For viable alternate worlds it first computes a Pareto set across:
 
-Inbound evidence is normalized and tagged before entering case state. Outbound WebMCP operations are narrow and typed. See `DISTILLATION_PROTOCOL.md`.
+- estimated cost
+- schedule delay
+- creative disruption
+- rights uncertainty
+- irreversibility
+- intervention count
+- affected dependency edges
 
-## Reality Triangle
+It then prefers the smallest intervention/graph disturbance and uses the producer's explicit weights only as a later tie-breaker.
 
-Proof Gate keeps three states conceptually separate:
+NATE can still reject the mathematical favorite if it misses the actual deadline.
 
-- **Intended** — what a decision/workflow seeks to establish
-- **Reported** — what a source/tool/API/model says happened
-- **Observed** — what the recorded evidence actually supports
+## External intelligence boundary
 
-The app does not pretend its own evaluator independently observes the outside world. It preserves the material needed to inspect the gap.
+- Parallel Search supplies fresh web context.
+- Gemini proposes bounded counterfactual interventions.
+- Deterministic code performs routing and evaluation.
+- Human authority controls consequential creative mutation.
 
-## WebMCP surface
+## Private/public boundary
 
-The application registers six tools with `document.modelContext.registerTool(...)`:
-
-1. `proofgate.get_case`
-2. `proofgate.set_claim`
-3. `proofgate.add_evidence`
-4. `proofgate.identify_conflicts`
-5. `proofgate.evaluate_case`
-6. `proofgate.export_case`
-
-The tool layer calls the same pure functions used by the UI; no parallel agent-only case exists.
-
-## Security / integrity boundaries
-
-- only HTTP/HTTPS source URLs
-- no embedded URL credentials
-- no future observation dates
-- unknown dates preserved as unknown
-- evidence limit of 250 records
-- duplicate host/source family cannot manufacture independence
-- context evidence does not inflate directional confidence
-- direct contradiction is aggregated
-- persisted state is normalized/revalidated
-- evidence-derived tool outputs carry `untrustedContentHint`
-- evaluation is correctly marked as state-changing because it records lineage
-
-## Non-claims
-
-Proof Gate does not claim:
-
-- universal truth detection
-- calibrated probabilities
-- cryptographic immutability
-- real-world editorial independence merely from different URLs
-- native WebMCP browser success until independently tested in a compatible browser
-
-Those boundaries are intentional. Accountable intelligence starts by refusing to counterfeit certainty.
+The public repository demonstrates the mode geometry and state router required for the hackathon. It does not contain broader cross-domain private orchestration prompts, personal data, or unrelated internal project material.

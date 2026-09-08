@@ -1,120 +1,78 @@
-# Proof Gate — accountable intelligence for the open web
+# Release Path — Agentic Cinema 2026
 
-**WebMCP Challenge candidate · v0.2 · MIT licensed**
+**Agentic Cinema · Parallel track · v0.3 · MIT licensed**
 
-Most agents are optimized to act. **Proof Gate is optimized to make action inspectable.**
+Release Path is a governed media-production decision system that asks a harder question than ordinary clearance tooling:
 
-Proof Gate is a browser-native evidence workspace where a human and a browsing agent work on the **same versioned case**. The human sees the claim, evidence ledger, conflicts, uncertainty, audit lineage, and deterministic verdict. A compatible browser agent sees six explicit WebMCP tools registered through `document.modelContext.registerTool(...)`.
+> If the current production world is blocked, what is the smallest evidence-backed change that moves it toward release while respecting deadline, territory, creative intent, evidence quality, and human authority?
 
-## The contradiction
+## What is different
 
-Web agents can often click and call tools, but a real evidence workflow needs more than capability. It needs shared state, provenance, uncertainty, revision boundaries, and a record of how a conclusion changed.
+Most agents run one reasoning loop. Release Path uses a **state-dependent cognitive router**. The problem state determines whether the system should frame the objective, map dependencies, verify evidence, attack assumptions, test edge cases, widen the geographic frame, generate counterfactual production worlds, choose a minimum useful intervention, or stop for human authority.
 
-Proof Gate turns that contradiction into the product:
+Public modes demonstrated:
 
-> **Most competitors build intelligent agents. We build accountable intelligence.**
+- **NATE** — practical objective framing and post-optimization reality check
+- **ECHO** — dependency graph and counterfactual consequence propagation
+- **PROOF** — revision-bound evidence, provenance, freshness and source-family independence
+- **OBELISK** — structural attack on the current answer
+- **DEVIL** — edge-case failure search
+- **TGC** — distribution/territory evidence-frame expansion
+- **COUNTERFACTUAL** — bounded candidate production changes
+- **MINIMUM** — Pareto + minimum-useful-action selection
+- **AUTHORITY** — explicit human permission before consequential creative mutation
+- **DISTILLATION** — judge-safe decision receipt without private prompt disclosure
 
-## Why WebMCP
+## Hackathon integrations
 
-Without WebMCP, an agent must infer application semantics from labels and DOM controls and then maintain a parallel copy of the state. Proof Gate exposes narrow typed operations that mutate the same case state the human sees.
+The live path is designed around:
 
-The demo is intentionally stateful: claim revisions, evidence provenance, conflict analysis, evaluation, and export are application semantics rather than DOM guesses.
+1. **Parallel Search** for fresh, traceable web evidence at runtime.
+2. **Gemini / Google ADK** for bounded counterfactual proposal/orchestration.
+3. **Deterministic routing and evaluation** for consequence propagation, Pareto/minimum-useful-action selection, and fail-closed status.
+4. **Human authority** for consequential creative changes. Approval creates a new production revision and triggers PROOF again.
 
-## Six WebMCP tools
+Gemini proposes possibilities. The deterministic engine evaluates consequences. External search results remain evidence inputs, not automatic truth.
 
-- `proofgate.get_case` — read the current versioned state and evaluation
-- `proofgate.set_claim` — set or revise a claim; a changed claim creates a new revision
-- `proofgate.add_evidence` — add structured evidence bound to the current claim revision
-- `proofgate.identify_conflicts` — inspect contradiction, source concentration, freshness, and provenance gaps
-- `proofgate.evaluate_case` — record a deterministic verdict for the current claim revision
-- `proofgate.export_case` — export case state, evidence bindings, audit lineage, conflicts, and evaluation
+## Safety boundary
 
-## Distillation Protocol
+Release Path is decision support, **not legal advice**. `HOLD`, `CONDITIONAL`, and `GREENLIGHT` are production decision states, not certifications of copyright ownership or legal clearance.
 
-Proof Gate treats the WebMCP boundary as a **governance filter**, not a magic tunnel into the application.
+## Source
 
-**Inbound:** raw user, tool, or web content becomes structured evidence with provenance and uncertainty before it can affect evaluation.
+The exact locally verified v0.3 source is preserved in `release_path_v0.3.zip`.
 
-**Outbound:** internal state is exposed through narrow, typed, auditable tools rather than unconstrained agent actions.
-
-That means an API response is a report, not automatically truth; an AI statement is a proposal, not automatically evidence; and untrusted evidence-derived content is explicitly marked for the browsing agent.
-
-See [`docs/DISTILLATION_PROTOCOL.md`](docs/DISTILLATION_PROTOCOL.md).
-
-## Global Compass signature
+SHA-256:
 
 ```text
-SEE REALITY
-→ PRESERVE EVIDENCE
-→ UNDERSTAND RELATIONSHIPS
-→ SEPARATE CAPABILITY FROM AUTHORITY
-→ VERIFY WHAT ACTUALLY HAPPENED
-→ LEARN WITHOUT REWRITING HISTORY
+c8d9119dce5cf84a974946e96d30829b69d50dc62161eddccde4a7e24b8a8409
 ```
 
-For this focused WebMCP build, that philosophy appears as explicit provenance, visible uncertainty, claim-revision boundaries, deterministic evaluation, narrow tools, and exportable lineage.
+This branch includes an automated materialization workflow that expands the exact archive into normal browseable source files. If the workflow is unavailable, download the archive and run:
 
-## v0.2 integrity rules
+```bash
+python extract_source.py
+```
 
-The red-team pass found failures that ordinary happy-path tests missed. v0.2 now enforces:
+## Local verification
 
-- **claim binding:** evidence is bound to the claim revision under which it was recorded
-- **source-family independence:** repeated records from one source family cannot manufacture independent support
-- **stance-specific confidence:** context records do not inflate support/refutation confidence
-- **safe source URLs:** only `http`/`https` URLs are accepted; embedded credentials and executable schemes are rejected
-- **truthful dates:** omitted dates remain unknown; future observation dates are rejected
-- **bounded conflict analysis:** direct contradiction is aggregated instead of producing an O(n²) card explosion
-- **bounded evidence ledger:** a case accepts at most 250 evidence records
-- **restored-state validation:** persisted browser state is revalidated before rendering
-- **WebMCP trust annotations:** outputs carrying evidence-derived content use `untrustedContentHint`
-- **annotation semantics:** tools that record state changes are not mislabeled as read-only
+Before external release work, the exact archive passed **26/26 automated tests**, Python compilation, JavaScript syntax checking, FastAPI health smoke testing, deterministic mode routing, server-issued authority validation, and revision 1 → authority → revision 2 re-verification.
 
-## What the verdict means
-
-The evaluator is deterministic, not a truth oracle. Its thresholds and source-family grouping are transparent **demo heuristics**. A host name is used as a conservative source-family proxy when a URL exists; that is not proof of real-world editorial independence.
-
-The app does not browse or independently verify a source. It evaluates the evidence records entered into the current claim revision.
-
-## Audit semantics
-
-The browser state includes a versioned audit lineage for claim changes, evidence additions, and recorded evaluations. State transitions are inspectable and exportable.
-
-It is **not cryptographically tamper-evident** and is not described as an immutable forensic ledger.
+Live partner/model claims are intentionally **not** represented as verified until credentialed public reproduction succeeds.
 
 ## Run locally
 
-No build step or network dependency is required.
-
 ```bash
-python3 -m http.server 8080
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload
 ```
 
-Open `http://localhost:8080`.
+Then open `http://127.0.0.1:8000`.
 
-### WebMCP testing
+For deterministic mock-corpus demonstration, use **Run deterministic demo**. For the competition live path, configure the environment documented in `.env.example` and `docs/LIVE_VERIFICATION.md`.
 
-The app registers through `document.modelContext.registerTool(...)` when the API is available. If `getTools()` is available, the page also checks whether all six registered names can be enumerated.
+## Demo thesis
 
-In a browser without native WebMCP, **Tool inspector** executes the exact same handlers locally.
-
-A real native WebMCP browser invocation remains an external submission verification gate; mocked registration tests are not presented as a substitute.
-
-## Tests
-
-```bash
-node --test tests/*.test.mjs
-```
-
-Current local verification: **26/26 passing tests** across the engine suite, red-team regressions, WebMCP contract checks, and UI contract checks. See [`TEST_RECEIPT.md`](TEST_RECEIPT.md).
-
-## Submission state
-
-- Open-source license: **MIT — complete**
-- Public repository: **complete**
-- Local automated tests: **26/26 passing**
-- Live deployment: pending
-- Native WebMCP browser verification: pending
-- Public demo video: pending
-- Final Devpost submission: pending
-
-See `JUDGING.md`, `DEMO_SCRIPT.md`, `SUBMISSION_DRAFT.md`, and `docs/ARCHITECTURE.md`.
+**Existing clearance systems tell a producer where the wall is. Release Path models the smallest evidence-backed path around it.**

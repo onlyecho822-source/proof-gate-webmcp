@@ -1,0 +1,28 @@
+name: Materialize Release Path source
+
+on:
+  push:
+    branches: [release-path-agentic-cinema]
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: ${{ !contains(github.event.head_commit.message, 'materialize-source:') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: release-path-agentic-cinema
+          fetch-depth: 0
+      - name: Verify and expand exact v0.3 archive
+        run: python extract_source.py
+      - name: Commit browseable source
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app tests docs sample_data Dockerfile requirements.txt .env.example .dockerignore VERSION DEMO_SCRIPT.md JUDGING.md SUBMISSION_CHECKLIST.md TEST_RECEIPT.md BUILD_RECEIPT.json MANIFEST.sha256.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "materialize-source: expose exact Release Path v0.3"
+          git push origin HEAD:release-path-agentic-cinema
